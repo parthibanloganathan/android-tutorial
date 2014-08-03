@@ -9,13 +9,8 @@
     tools:context=".MainActivity">
 
     <TextView
-        android:text="@string/awesome_message"
+        android:text="@string/hello_world"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
-
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="puppy.jpg" />
 
 </RelativeLayout>
