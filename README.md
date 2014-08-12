@@ -61,21 +61,58 @@ Phase 3
 
 - Now that we have the layout setup with our view, let's figure out how to actually do something when someone presses the button. Go to `AwesomeApp/app/src/main/java/com/adi/awesomeapp/MainActivity.java` and create a listener for the new button we created so we can respond to button presses. 
 - Create a Button field in MainActivity. `private Button mButton;`
-- The method `onCreate(Bundle)` handles all the stuff that needs to be done as soon as the activity is created. For more about Activity life cycle, read [the Android docs](http://developer.android.com/training/basics/activity-lifecycle/starting.html). So we want to point `mButton` to the button view we created in `activity_main.xml` as soon as the user sees this screen. Add `xmButton = (Button) findViewById(R.id.camera_button);` after the content view is set to `activity_main`.
-- Similarly, create an ImageView `private ImageView mImage;` and in `onCreate()`, add `mImage = (ImageView) findViewById(R.id.my_image);`
-- Now that we have a Button and an ImageView, we can add an `OnClickListener` to respond to button clicks. We're going to create an (Intent)[http://developer.android.com/guide/components/intents-filters.html], an object that lets us go to other Activities or apps. We're going to create an intent that allows us to take a picture using the camera. On the next line, add the following listener:
+- The method `onCreate(Bundle)` handles all the stuff that needs to be done as soon as the activity is created. For more info about Activity life cycle, read [the Android docs](http://developer.android.com/training/basics/activity-lifecycle/starting.html). So we want to point `mButton` to the button view we created in `activity_main.xml` as soon as the user sees this screen. Add `mButton = (Button) findViewById(R.id.camera_button);` after the content view is set to `activity_main`.
+- Similarly, create an ImageView field `private ImageView mImage;` and in `onCreate()`, add `mImage = (ImageView) findViewById(R.id.my_image);`. this will let us change the ImageView containing the puppy picture.
+- We also need to tell the camera where to save the image it captures. That's where the URI comes in. So go ahead and create an ImageView field `private Uri mUri;` and in `onCreate()`, add `mUri = Utils.getOutputMediaFileUri(getApplicationContext());`
+- Now that we have a Button, an ImageView and a file URI, we can add an `OnClickListener` to respond to button clicks. We're going to create an (Intent)[http://developer.android.com/guide/components/intents-filters.html], an object that lets us go to other Activities or apps. Our intent will allow us to take a picture using the camera. (In Android, each app exists in its own process. We could use the (Camera API)[http://developer.android.com/guide/topics/media/camera.html#custom-camera] to build a custom camera, but that's too hard for this tutorial).
+- After assigning values to `mUri`, `mImage` and `mButton`, add the following listener for the button:
 ```
+        mButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Create the intent
+                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
+                // Add the output URI as an extra argument in the intent
+                intent.putExtra(MediaStore.EXTRA_OUTPUT, mUri);
+
+                // Start the image capture Intent
+                startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
+            }
+        });
 ```
+- Notice that we called the camera using `startActivityForResult`. This means that once the camera finishes taking the picture, it will return to this Activity of our app. We have to be ready to handle this result. So let's create a method `onActivityResult` in our class as follows:
+```
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_IMAGE_CAPTURE) {
+            if (resultCode == RESULT_OK) {
+                /**
+                 * Image captured and saved to the URI specified in the Intent
+                 * so we read the image from disk and set it to our ImageView mImage.
+                 */
+                Bitmap photo = Utils.getResizedBitmapFromUri(mUri);
+                mImage.setImageBitmap(photo);
+                Toast.makeText(this, "Worked", Toast.LENGTH_SHORT);
+            } else if (resultCode == RESULT_CANCELED) {
+                // User cancelled the image capture, do nothing
+            } else {
+                // Image capture failed, do nothing
+            }
+        }
+    }
+```
+- It essentially checks if we successfully took a picture and then gets a scaled down bitmap image from the uri that the camera saved its picture to. This bitmap is set to our ImageView. We finally pop up a message saying that the picture was taken.
 
 Phase 4
 - Right click on `AwesomeApp/app/src/main/java/com.adi.awesomeapp` (or whatever your project is named). Create a new Activity that is Blank and named `TwitterActivity`.
-- Note that before, we used the Camera. You might be wondering how we accessed it without permisssions for the Camera `android.permission.CAMERA`. This is because we just offloaded the work to the camera by creating an intent. We never actually accessed the camera from our app.
+- To tweet, we're going to need access to the internet.
+- You might be wondering how we accessed the camera without permisssions for the Camera `android.permission.CAMERA`. This is because we just offloaded the work to the camera by creating an intent. We never actually accessed the camera directly from our app.
 
 Pre-requisites:
 - Knowledge of Java (1004, 1007)
 - Desire to learn
-- ~~Hatred for iOS~~
+- ~~A hatred for iOS~~
 
 Android Terminology:
 
