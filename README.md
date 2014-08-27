@@ -3,7 +3,7 @@ Android Tutorial
 
 Android Tutorial for ADI
 
-Phase 1
+### Phase 1
 - Install Android Studio.
 - Create New Project.
 - Name your application `AwesomeApp`.
@@ -11,30 +11,35 @@ Phase 1
 - Choose Blank Activity.
 - Put `MainActivity` under Activity Name and click Next.
 
-Phase 2
+### Phase 2
 - You now have an app with one Activity.
 - Let's make it say a message and display an image.
 - Open `AwesomeApp/app/src/main/res/layout/activity_main.xml` and delete everything in it. Replace its content with the XML below:
 ```
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:orientation="vertical"
-    tools:context=".MainActivity">
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        tools:context=".MainActivity">
 
     <TextView
         android:text="@string/hello_world"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
-</LinearLayout>
-```
-We changed the layout from a RelativeLayout to a LinearLayout to make formating easier for the purpose of this tutorial.
+    </LinearLayout>
+
+</ScrollView>```
+- We changed the layout from a RelativeLayout to a `ScrollView` holding a `LinearLayout` to make formating easier for the purpose of this tutorial. The `ScrollView` allows its content to be scrollable and the `LinearLayout` positions all its content linearly one after another without overlap.
 
 - Next, to make a custom message, change `android:text="@string/hello_world"` to `android:text="@string/awesome_message"`.
 - Open `AwesomeApp/app/src/main/res/values/strings.xml` and add a new string `<string name="awesome_message">You\'re awesome!</string>`.
@@ -47,7 +52,7 @@ We changed the layout from a RelativeLayout to a LinearLayout to make formating 
         android:src="puppy.jpg" />
 ```
 
-Phase 3
+### Phase 3
 - Puppies are nice, but how about we get a picture of you. We're going to replace that puppy image with your photo using the camera.
 - In `activity_main.xml`, create a Button by copying the following XML block above the TextView:
 ```
@@ -104,15 +109,47 @@ Phase 3
 ```
 - It essentially checks if we successfully took a picture and then gets a scaled down bitmap image from the uri that the camera saved its picture to. This bitmap is set to our ImageView. We finally pop up a message saying that the picture was taken.
 
-Phase 4
+### Phase 4 (Advanced)
+The internet makes everything better, EVERYTHING. Our simple Android app could be be so much more if we could interact with an internet service like Twitter. This section deals with using REST APIs and a nifty design pattern called `Observables` that makes chaining API calls together super simple. This is a pretty big step up from Phase 3, so you might need a a bit more patience to appreciate this section. You may want to do this phase after exploring Android on your own a bit more.
+
 - Right click on `AwesomeApp/app/src/main/java/com.adi.awesomeapp` (or whatever your project is named). Create a new Activity that is Blank and named `TwitterActivity`.
-- To tweet, we're going to need access to the internet.
-- You might be wondering how we accessed the camera without permisssions for the Camera `android.permission.CAMERA`. This is because we just offloaded the work to the camera by creating an intent. We never actually accessed the camera directly from our app.
+- To tweet, we're going to need access to the internet. So our app is going to have to request the permission `android.permission.INTERNET`. Open up the Manifest file located at `AwesomeApp/app/src/main/AndroidManifest.xml` and add `<uses-permission android:name="android.permission.INTERNET" />` in the `manifest` tag, but outside the `aplication` tag like below:
+```
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.adi.awesomeapp" >
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+    <uses-feature android:name="android.hardware.camera"></uses-feature>
+
+</manifest>
+
+```
+You might be wondering how we accessed the camera without permisssions for the Camera `android.permission.CAMERA`. This is because we just offloaded the work to the camera by creating an intent. We never actually accessed the camera directly from our app.
+-
 
 Pre-requisites:
 - Knowledge of Java (1004, 1007)
-- Desire to learn
+- Desire to learn about the world's most popular mobile platform
 - ~~A hatred for iOS~~
+- Willingness to put up with fragmentation and the disarray of Android development
 
 Android Terminology:
 

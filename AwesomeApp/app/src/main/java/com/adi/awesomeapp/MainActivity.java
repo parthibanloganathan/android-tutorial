@@ -3,9 +3,11 @@ package com.adi.awesomeapp;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,13 +20,17 @@ public class MainActivity extends Activity {
     private Button mButton;
     private ImageView mImage;
     private Uri mUri;
+    private Button mTweetButton;
 
     private static final int REQUEST_IMAGE_CAPTURE = 1;
+    private static final String TAG = "MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Log.e(TAG, "Created");
 
         mImage = (ImageView) findViewById(R.id.my_image);
 
@@ -43,6 +49,17 @@ public class MainActivity extends Activity {
 
                 // Start the image capture Intent
                 startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
+            }
+        });
+
+        mTweetButton = (Button) findViewById(R.id.tweet_button);
+        mTweetButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.e(TAG, "Clicked on button");
+                Bitmap image = ((BitmapDrawable) mImage.getDrawable()).getBitmap();
+                Twitter.getInstance(getApplicationContext())
+                        .tweet(MainActivity.this, "Test", image);
             }
         });
     }
