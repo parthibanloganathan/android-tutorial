@@ -1,19 +1,19 @@
 Android Tutorial
 ================
 
-Android Tutorial for [ADI](http://adicu.com/) at [Columbia](http://www.columbia.edu/).
+### Android Tutorial for [ADI](http://adicu.com/) at [Columbia](http://www.columbia.edu/).
 
 This tutorial is divided into various phases. Each phase builds upon the previous one, adding features and exposing you to the Android way of doing things. In no way is this tutorial meant to be all encompassing or a thorough introduction to Android, but it should help you get your feet wet and create a basic Android app that can do some cool stuff like take pictures and post to Twitter.
 
 Each Phase has a separate folder and is self-contained. You can import each phase's project in Android Studio by cloning this repository using `git clone https://github.com/parthibanloganathan/android-tutorial.git` and then opening up Android Studio > File > Import Project > Phase 1 (or 2, 3, 4 depending on which phase you want). 
 
-Pre-requisites:
+#### Pre-requisites:
 - Knowledge of Java (1004, 1007)
 - Desire to learn about the world's most popular mobile platform
 - ~~A hatred for iOS~~
 - Willingness to put up with fragmentation and the disarray of Android development
 
-Android Terminology:
+#### Android Terminology:
 
 Views are anthing you can see on your screen.
 eg - ImageView, TextView, etc.
@@ -843,7 +843,9 @@ public class ReceiverActivity extends Activity {
     </application>
 
 </manifest>
+
 ```
+
 - I also created an icon called `ic_launched.png`, deleted all the existing launcher icons and added mine to `AwesomeApp/app/src/main/res/drawable-mdpi`. Not the right way to do this, but just letting you know how it got there. :-)
 
 Congratulations!
