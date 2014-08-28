@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="oauth_consumer_key">nnf7rjmkFa5CSPSBMVfbzKsfc</string>
-    <string name="consumer_secret">UPSCU7DEyITmzndJLSF9yyVP7otnB3yIbg7MMGCiRhGWEgtKvq</string>
-    <string name="oauth_token">1125626995-J4HUr4HKWGlinyJo51XT8dL3JuNq28XVo1DDpRg</string>
-    <string name="oauth_token_secret">gDKbc9AuTqwXzzHxWlFODpioYGfgbI0GuqkovDmPB10aK</string>
-    <string name="callback_url">"http://adicu.com"</string>
-</resources>

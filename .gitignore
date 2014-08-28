@@ -25,3 +25,6 @@ proguard/
 .idea/
 
 .DS_Store
+
+# Keys
+keys.xml

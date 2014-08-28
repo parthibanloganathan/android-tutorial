@@ -12,14 +12,18 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import java.io.File;
 
 public class MainActivity extends Activity {
 
     private Button mButton;
     private ImageView mImage;
     private Uri mUri;
+    private EditText mMessageView;
     private Button mTweetButton;
 
     private static final int REQUEST_IMAGE_CAPTURE = 1;
@@ -30,9 +34,11 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Log.e(TAG, "Created");
-
         mImage = (ImageView) findViewById(R.id.my_image);
+
+        if (Utils.doesSavedImageExist(this)) {
+            mImage.setImageBitmap(Utils.getResizedBitmapFromFile(Utils.getSavedImage(this)));
+        }
 
         // Get URI using Utils which does disk I/O that you don't have to worry about
         mUri = Utils.getOutputMediaFileUri(getApplicationContext());
@@ -52,14 +58,26 @@ public class MainActivity extends Activity {
             }
         });
 
+        mMessageView = (EditText) findViewById(R.id.message);
+        final String message = mMessageView.getText().toString();
+
         mTweetButton = (Button) findViewById(R.id.tweet_button);
         mTweetButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.e(TAG, "Clicked on button");
-                Bitmap image = ((BitmapDrawable) mImage.getDrawable()).getBitmap();
-                Twitter.getInstance(getApplicationContext())
-                        .tweet(MainActivity.this, "Test", image);
+                Log.d(TAG, "Clicked on Tweet button");
+
+                File image = null;
+                if (Utils.doesSavedImageExist(MainActivity.this)) {
+                    image = Utils.getSavedImage(MainActivity.this);
+                } else {
+                    image = Utils.saveToFile(
+                            MainActivity.this,
+                            ((BitmapDrawable) mImage.getDrawable()).getBitmap()
+                    );
+                }
+
+                TwitterService.getInstance(MainActivity.this).tweet(MainActivity.this, message, image);
             }
         });
     }
