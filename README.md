@@ -1,19 +1,19 @@
-Android Tutorial
-================
+Do Android Developers Dream of Electric Sheep?
+==============================================
+### A Beginner's Guide to Android
+####by [ADI](http://adicu.com/) at [Columbia](http://www.columbia.edu/)
 
-### Android Tutorial for [ADI](http://adicu.com/) at [Columbia](http://www.columbia.edu/).
+This tutorial is divided into various phases. Each phase builds upon the previous one, adding features and exposing you to the Android way of doing things. In no way is this tutorial meant to be all-encompassing or a thorough introduction to Android, but it should help you get your feet wet and create a basic Android app that can do some cool stuff like take pictures and post to Twitter.
 
-This tutorial is divided into various phases. Each phase builds upon the previous one, adding features and exposing you to the Android way of doing things. In no way is this tutorial meant to be all encompassing or a thorough introduction to Android, but it should help you get your feet wet and create a basic Android app that can do some cool stuff like take pictures and post to Twitter.
+Each phase has a separate folder and is self-contained. You can import each phase's project in Android Studio by cloning this repository using `git clone https://github.com/parthibanloganathan/android-tutorial.git` and then opening up Android Studio and going to File > Import Project > Phase 1 (or 2, 3, 4 depending on which phase you want). 
 
-Each Phase has a separate folder and is self-contained. You can import each phase's project in Android Studio by cloning this repository using `git clone https://github.com/parthibanloganathan/android-tutorial.git` and then opening up Android Studio > File > Import Project > Phase 1 (or 2, 3, 4 depending on which phase you want). 
-
-#### Pre-requisites:
-- Knowledge of Java (1004, 1007)
+#### Pre-requisites
+- Knowledge of Java (if you've taken 1004, 1007, you're good)
 - Desire to learn about the world's most popular mobile platform
 - ~~A hatred for iOS~~
 - Willingness to put up with fragmentation and the disarray of Android development
 
-#### Android Terminology:
+#### Some Terminology
 
 Views are anthing you can see on your screen.
 eg - ImageView, TextView, etc.
@@ -28,7 +28,7 @@ Services are tasks that run in the background of your app.
 
 Resources include images, fixed strings, XML data, predefined layouts, etc.
 
-If there's ever a term you don't understand, consult the [Android docs](https://developer.android.com/guide/index.html), google it or check out [StackOverflow](http://stackoverflow.com/questions/tagged/android). You're bound to find help at one of these resources.
+If there's ever a term you don't understand, consult the [Android docs](https://developer.android.com/guide/index.html), Google it or check out [StackOverflow](http://stackoverflow.com/questions/tagged/android). You're bound to find help at one of these resources.
 
 Let's get started!
 
@@ -39,6 +39,8 @@ Let's get started!
 - Click Next on "Select the form factors your app will run on".
 - Choose Blank Activity.
 - Put `MainActivity` under Activity Name and click Next.
+- You can run your activity by connecting your Android device to your computer via USB and pressing the giant green Play button above or going to Run > Run app. Select your device and proceed. Make sure to [install device drivers](http://developer.android.com/tools/extras/oem-usb.html) if necessary.
+- You just made a blank Android app. It does absolutely nothing, just like thousands of other apps that are viable businesses. Hooray!
 
 ### Phase 2
 - You now have an app with one Activity.
@@ -99,7 +101,7 @@ Let's get started!
 - The method `onCreate(Bundle)` handles all the stuff that needs to be done as soon as the activity is created. For more info about Activity life cycle, read [the Android docs](http://developer.android.com/training/basics/activity-lifecycle/starting.html). So we want to point `mButton` to the button view we created in `activity_main.xml` as soon as the user sees this screen. Add `mButton = (Button) findViewById(R.id.camera_button);` after the content view is set to `activity_main`.
 - Similarly, create an ImageView field `private ImageView mImage;` and in `onCreate()`, add `mImage = (ImageView) findViewById(R.id.my_image);`. this will let us change the ImageView containing the puppy picture.
 - We also need to tell the camera where to save the image it captures. That's where the URI comes in. So go ahead and create an ImageView field `private Uri mUri;` and in `onCreate()`, add `mUri = Utils.getOutputMediaFileUri(getApplicationContext());`. `Utils` is a class with utility methods for file I/O. You can copy it directly from [here](https://github.com/parthibanloganathan/android-tutorial/blob/master/Phase3/AwesomeApp/app/src/main/java/com/adi/awesomeapp/Utils.java) or just import Phase 3.
-- Now that we have a Button, an ImageView and a file URI, we can add an `OnClickListener` to respond to button clicks. We're going to create an (Intent)[http://developer.android.com/guide/components/intents-filters.html], an object that lets us go to other Activities or apps. Our intent will allow us to take a picture using the camera. (In Android, each app exists in its own process. We could use the (Camera API)[http://developer.android.com/guide/topics/media/camera.html#custom-camera] to build a custom camera, but that's too hard for this tutorial).
+- Now that we have a Button, an ImageView and a file URI, we can add an `OnClickListener` to respond to button clicks. We're going to create an [Intent](http://developer.android.com/guide/components/intents-filters.html), an object that lets us go to other Activities or apps. Our intent will allow us to take a picture using the camera. (In Android, each app exists in its own process. We could use the [Camera API](http://developer.android.com/guide/topics/media/camera.html#custom-camera) to build a custom camera, but that's too hard for this tutorial).
 - After assigning values to `mUri`, `mImage` and `mButton`, add the following listener for the button:
 ```
         mButton.setOnClickListener(new View.OnClickListener() {
@@ -183,7 +185,7 @@ I strongly suggest you import the Phase 4 project because it's too large for me 
 </manifest>
 ```
 You might be wondering how we accessed the camera without permisssions for the Camera `android.permission.CAMERA`. This is because we just offloaded the work to the camera by creating an intent. We never actually accessed the camera directly from our app.
-- First, we need a bunch of utility functions to supplement our file I/O operations. So in our `Utils` class we're going to add some more methods. You can copy them from [here]() or just import Phase 4. They're pretty self-explanotrory and simple if you're familiar with Java. Nothing fancy.
+- First, we need a bunch of utility functions to supplement our file I/O operations. So in our `Utils` class we're going to add some more methods. You can copy them from [here](https://github.com/parthibanloganathan/android-tutorial/blob/master/Phase4/AwesomeApp/app/src/main/java/com/adi/awesomeapp/Utils.java) or just import Phase 4. They're pretty self-explanotrory and simple if you're familiar with Java. Nothing fancy.
 ```
 package com.adi.awesomeapp;
 
@@ -282,7 +284,7 @@ public class Utils {
     }
 }
 ```
-- Create a new class called `TwitterService`. This class handles all the requests to the Twitter API. This includes the calls for OAuth and to tweet. It uses the libraries [twitter4j](http://twitter4j.org/en/) and [RxJava](https://github.com/ReactiveX/RxJava). twitter4j is a Twitter Java SDK that makes using the Twitter API extremely easy. In particular, implementing OAuth on your own is a tedious and unrewarding process that you should probably leave to a library. If you can't find an SDK for the API you want to use, you should use [Scribe](https://github.com/fernandezpablo85/scribe-java), an OAuth library for Java. RxJava is a library for "composing asynchronous and event-based programs using observable sequences". That's a fancy way of saying that RxJava helps you deal with asynchronous calls in a "reactive" manner, where you listen for events and react to them as they happen instead of the linear programming model everyone is familiar with. You can see the code [here](). It is heavily commented, so just give it a breif read to get an idea of what it does and how it works. Essentially, it just makes Twitter API calls in order.
+- Create a new class called `TwitterService`. This class handles all the requests to the Twitter API. This includes the calls for OAuth and to tweet. It uses the libraries [twitter4j](http://twitter4j.org/en/) and [RxJava](https://github.com/ReactiveX/RxJava). twitter4j is a Twitter Java SDK that makes using the Twitter API extremely easy. In particular, implementing OAuth on your own is a tedious and unrewarding process that you should probably leave to a library. If you can't find an SDK for the API you want to use, you should use [Scribe](https://github.com/fernandezpablo85/scribe-java), an OAuth library for Java. RxJava is a library for "composing asynchronous and event-based programs using observable sequences". That's a fancy way of saying that RxJava helps you deal with asynchronous calls in a "reactive" manner, where you listen for events and react to them as they happen instead of the linear programming model everyone is familiar with. You can see the code [here](https://github.com/parthibanloganathan/android-tutorial/blob/master/Phase4/AwesomeApp/app/src/main/java/com/adi/awesomeapp/TwitterService.java). It is heavily commented, so just give it a breif read to get an idea of what it does and how it works. Essentially, it just makes Twitter API calls in order.
 ```
 package com.adi.awesomeapp;
 
@@ -729,7 +731,7 @@ public class MainActivity extends Activity {
 }
 ```
 - There's one last component we need to put everything together - the intent filter. When the browser redirects to the callback url, how does the OS know that our app should be opened? This is achieved by the intent filter. The callback url in the browser broadcasts an intent that we can pick up in our intent filter. You can read more about [Intents and Intent Filters here](http://developer.android.com/guide/components/intents-filters.html).
-- Create a new blank Activity called `ReceiverActivity`. This is the Activity that will be launched when the intent passes our filter and triggers our app launch. This activity will received the intent, extract the `oauth_verifier` from the URI and pass it on to `TwitterService` to authenticate the user so that we can get an access token and start making authenticated requests to Twitter (like tweeting). Once again, it's advisable to import the project directly or get the code form [here]().
+- Create a new blank Activity called `ReceiverActivity`. This is the Activity that will be launched when the intent passes our filter and triggers our app launch. This activity will received the intent, extract the `oauth_verifier` from the URI and pass it on to `TwitterService` to authenticate the user so that we can get an access token and start making authenticated requests to Twitter (like tweeting). Once again, it's advisable to import the project directly or get the code form [here](https://github.com/parthibanloganathan/android-tutorial/blob/master/Phase4/AwesomeApp/app/src/main/java/com/adi/awesomeapp/ReceiverActivity.java).
 ```
 package com.adi.awesomeapp;
 
@@ -846,7 +848,6 @@ public class ReceiverActivity extends Activity {
 </manifest>
 
 ```
-
 - I also created an icon called `ic_launched.png`, deleted all the existing launcher icons and added mine to `AwesomeApp/app/src/main/res/drawable-mdpi`. Not the right way to do this, but just letting you know how it got there. :-)
 
 Congratulations!
