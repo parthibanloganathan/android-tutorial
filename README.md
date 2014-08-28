@@ -780,6 +780,7 @@ public class ReceiverActivity extends Activity {
         startActivity(new Intent(this, MainActivity.class));
     }
 }
+```
 - Since we created a new activity, we also need to register it in the manifest.
 ```
         <activity
