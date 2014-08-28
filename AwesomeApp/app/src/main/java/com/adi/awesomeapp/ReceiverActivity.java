@@ -7,6 +7,13 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
+/**
+ * The sole purpose of this Activity is to be started
+ * and respond to the Intent when the browser redirects
+ * the user to the callback url. This Activity captures the intent
+ * thanks to the Intent Filter we added in the AndroidManifest.
+ * It extracts the oauth_verifier from the intent and authenticates the user.
+ */
 public class ReceiverActivity extends Activity {
     private static final String TAG = "ReceiverActivity";
 
