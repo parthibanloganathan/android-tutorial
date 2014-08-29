@@ -152,8 +152,8 @@ The internet makes everything better, EVERYTHING. Our simple Android app could b
 I strongly suggest you import the Phase 4 project because it's too large for me to go over every tiny detail here.
 
 - Create a new app on Twitter. Sign into Twitter, go to https://apps.twitter.com/ and create a new app. Fill up whatever you want, but make sure you add a url to the field `Callback URL`. I used `http://adicu.com`. You can use any valid URL - it doesn't matter. We'll supply our own callback URL in our API calls in the app. Once you create your app, go to your App Settings and make sure that the checkbox `Allow this application to be used to Sign in with Twitter` is ticked.
-- Go to Permissions and select `Read, Write and Access direct messages`. You may have to register your phone number.
 <a href="screenshots/twitterapp1.png"><img src="screenshots/twitterapp1.png" width="600px"></a>
+- Go to Permissions and select `Read, Write and Access direct messages`. You may have to register your phone number.
 <a href="screenshots/twitterapp2.png"><img src="screenshots/twitterapp2.png" width="600px"></a>
 - Go to API Keys and copy `API key` and `API secret`. Put these in a file in your app at `AwesomeApp/app/src/main/res/values/keys.xml` like so:
 ```
@@ -163,7 +163,8 @@ I strongly suggest you import the Phase 4 project because it's too large for me 
     <string name="oauth_consumer_secret">YOUR_API_SECRET_HERE</string>
 </resources>
 ```
-- Don't share these keys with anybody (that is, don't push it to GitHub, don't tweet it, don't make it your Facebook status, don't tell Bwog). If you do share them, either be prepared for pepole to do malicious things with your keys or regenerate your API keys in the Twitter app settings.
+### IMPORTANT: Your app can't access Twitter without the API keys. If you import Phase 4 directly, note that the API keys are not included and that you have to create your own.
+- Don't share these keys with anybody (that is, don't push it to GitHub, don't tweet it, don't make it your Facebook status, don't tell Bwog). If you do share them, be prepared for people to do malicious and dirty things with your keys (the horror!). You can regenerate your API keys in the Twitter app settings.
 - To tweet, we're going to need access to the internet. So our app is going to have to request the permission `android.permission.INTERNET`. Open up the Manifest file located at `AwesomeApp/app/src/main/AndroidManifest.xml` and add `<uses-permission android:name="android.permission.INTERNET" />` in the `manifest` tag, but outside the `aplication` tag. Let's add the permissions `android.permission.ACCESS_COARSE_LOCATION` and `android.permission.ACCESS_FINE_LOCATION` so we can tweet our location too. 
 ```
 <?xml version="1.0" encoding="utf-8"?>
