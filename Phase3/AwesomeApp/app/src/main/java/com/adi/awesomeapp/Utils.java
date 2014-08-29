@@ -10,7 +10,6 @@ import java.io.File;
 public class Utils {
     private static final String fileName = "demo_image.jpg";
     private static final int WIDTH = 600;
-    private static final int HEIGHT = 480;
 
     /**
      * Create a new file in external memory and return its URI
@@ -25,7 +24,14 @@ public class Utils {
      */
     public static Bitmap getResizedBitmapFromUri(Uri uri) {
         File file = new File(uri.getPath());
-        Bitmap bitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
+        return resizeBitmap(BitmapFactory.decodeFile(file.getAbsolutePath()));
+    }
+
+    /**
+     * Resize bitmap
+     */
+    private static Bitmap resizeBitmap(Bitmap bitmap) {
+        final int HEIGHT = WIDTH*bitmap.getHeight()/bitmap.getWidth();
         return Bitmap.createScaledBitmap(bitmap, WIDTH, HEIGHT, false);
     }
 }

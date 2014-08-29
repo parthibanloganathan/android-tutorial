@@ -42,6 +42,8 @@ Let's get started!
 - You can run your activity by connecting your Android device to your computer via USB and pressing the giant green Play button above or going to Run > Run app. Select your device and proceed. Make sure to [install device drivers](http://developer.android.com/tools/extras/oem-usb.html) if necessary.
 - You just made a blank Android app. It does absolutely nothing, just like thousands of other apps that are viable businesses. Hooray!
 
+![Phase 1](screenshots/phase1.png)
+
 ### Phase 2
 - You now have an app with one Activity.
 - Let's make it say a message and display an image.
@@ -71,18 +73,20 @@ Let's get started!
 
 </ScrollView>
 ```
-- We changed the layout from a RelativeLayout to a `ScrollView` holding a `LinearLayout` to make formating easier for the purpose of this tutorial. The `ScrollView` allows its content to be scrollable and the `LinearLayout` positions all its content linearly one after another without overlap.
-
+- We changed the layout from a RelativeLayout to a `ScrollView` holding a `LinearLayout` to make formating easier for the purpose of this tutorial. The ScrollView allows its content to be scrollable and the LinearLayout positions all its content linearly one after another without overlap.
 - Next, to make a custom message, change `android:text="@string/hello_world"` to `android:text="@string/awesome_message"`.
 - Open `AwesomeApp/app/src/main/res/values/strings.xml` and add a new string `<string name="awesome_message">You\'re awesome!</string>`.
 - So you modified a TextView to display your own message. How about we take that up a notch and display a picture too. Save your favorite image (I used `puppy.jpg`) to `AwesomeApp/app/src/main/res/drawable-mdpi`. NOTE: In a real app, you would want to have larger sized copies of the image in `res/drawable-hdpi` and `res/drawable-xhdpi` to accomodate a wide variety of screen resolutions.
 - In `activity_main.xml`, create an ImageView to display an image. Copy the following XML block below the TextView and nested within the RelativeLayout.
 ```
-<ImageView
+    <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="puppy.jpg" />
+        android:src="@drawable/puppy" />
 ```
+- Awesome! Your app can display text and images. It's as functional as a web page in the early 90's. Fun fact: The first modern web browser was [Mosaic](http://en.wikipedia.org/wiki/Mosaic_%28web_browser%29) released in January 1993.
+
+![Phase 2](screenshots/phase2.png)
 
 ### Phase 3
 - Puppies are nice, but how about we get a picture of you. We're going to replace that puppy image with your photo using the camera.
@@ -95,7 +99,6 @@ Let's get started!
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"/>
 ```
-
 - Now that we have the layout setup with our view, let's figure out how to actually do something when someone presses the button. Go to `AwesomeApp/app/src/main/java/com/adi/awesomeapp/MainActivity.java` and create a listener for the new button we created so we can respond to button presses. 
 - Create a Button field in MainActivity. `private Button mButton;`
 - The method `onCreate(Bundle)` handles all the stuff that needs to be done as soon as the activity is created. For more info about Activity life cycle, read [the Android docs](http://developer.android.com/training/basics/activity-lifecycle/starting.html). So we want to point `mButton` to the button view we created in `activity_main.xml` as soon as the user sees this screen. Add `mButton = (Button) findViewById(R.id.camera_button);` after the content view is set to `activity_main`.
@@ -140,6 +143,8 @@ Let's get started!
     }
 ```
 - It essentially checks if we successfully took a picture and then gets a scaled down bitmap image from the uri that the camera saved its picture to. This bitmap is set to our ImageView. We finally pop up a message saying that the picture was taken.
+
+![Phase 3](screenshots/phase3.png)
 
 ### Phase 4 (Advanced)
 The internet makes everything better, EVERYTHING. Our simple Android app could be be so much more if we could interact with an internet service like Twitter. This section deals with using REST APIs and a nifty design pattern called `Observables` that makes chaining API calls together super simple. This is a step up from Phase 3, so you might need a a bit more patience to appreciate this section. You may want to do this phase after exploring Android on your own a bit more. This phase has more to do with OAuth and REST APIs that Android specifically, so if you're comfortable with them from other languages and frameworks, feel free to jump right in!
@@ -870,8 +875,10 @@ public class ReceiverActivity extends Activity {
 ```
 - I also created an icon called `ic_launcher.png`, deleted all the existing launcher icons and added mine to `AwesomeApp/app/src/main/res/drawable-mdpi`. Ideally, we would create different size icons for each resolution. This is not the right way to do this, but just letting you know how it got there. :-)
 
+![Phase 4-1](screenshots/phase4-1.png)  ![Phase 4-2](screenshots/phase4-2.png)  ![Phase 4-3](screenshots/phase4-3.png) 
+
 ### Phase 5
-Now that we finished the guts of the app, let's pretty it up. This will be really quick!
+Now that we finished the guts of the app, let's pretty it up. This will be really quick because I don't really care how this app looks and because this should be super easy to follow if you did Phase 4.
 - Add some color resources by adding the file `AwesomeApp/app/src/main/res/values/colors.xml`
 ```
 <?xml version="1.0" encoding="utf-8"?>
@@ -944,6 +951,8 @@ Now that we finished the guts of the app, let's pretty it up. This will be reall
 
 </ScrollView>
 ```
+
+![Phase 5](screenshots/phase5.png)
 
 Congratulations!
 
