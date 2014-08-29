@@ -157,13 +157,15 @@ I strongly suggest you import the Phase 4 project because it's too large for me 
 </resources>
 ```
 - Don't share these keys with anybody (that is, don't push it to GitHub, don't tweet it, don't make it your Facebook status, don't tell Bwog). If you do share them, either be prepared for pepole to do malicious things with your keys or regenerate your API keys in the Twitter app settings.
-- To tweet, we're going to need access to the internet. So our app is going to have to request the permission `android.permission.INTERNET`. Open up the Manifest file located at `AwesomeApp/app/src/main/AndroidManifest.xml` and add `<uses-permission android:name="android.permission.INTERNET" />` in the `manifest` tag, but outside the `aplication` tag like below:
+- To tweet, we're going to need access to the internet. So our app is going to have to request the permission `android.permission.INTERNET`. Open up the Manifest file located at `AwesomeApp/app/src/main/AndroidManifest.xml` and add `<uses-permission android:name="android.permission.INTERNET" />` in the `manifest` tag, but outside the `aplication` tag. Let's add the permissions `android.permission.ACCESS_COARSE_LOCATION` and `android.permission.ACCESS_FINE_LOCATION` so we can tweet our location too. 
 ```
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.adi.awesomeapp" >
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -288,9 +290,12 @@ public class Utils {
 ```
 package com.adi.awesomeapp;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.location.Location;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -301,6 +306,7 @@ import java.io.File;
 import rx.Observable;
 import rx.functions.Action1;
 import rx.schedulers.Schedulers;
+import twitter4j.GeoLocation;
 import twitter4j.Status;
 import twitter4j.StatusUpdate;
 import twitter4j.Twitter;
@@ -500,6 +506,13 @@ public class TwitterService {
          */
         StatusUpdate statusUpdate = new StatusUpdate(message);
         statusUpdate.setMedia(image);
+        LocationManager manager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+        Location location = manager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+        if (location != null) {
+            double latitude = location.getLatitude();
+            double longitude = location.getLongitude();
+            statusUpdate.setLocation(new GeoLocation(latitude, longitude));
+        }
 
         Log.d(TAG, "Attempting to tweet");
 
@@ -521,7 +534,13 @@ public class TwitterService {
                                     @Override
                                     public void call(Status status) {
                                         Log.d(TAG, "Tweeted!");
-                                        Toast.makeText(context, "Tweeted! Check your feed to see if it worked.", Toast.LENGTH_SHORT).show();
+                                        if (context instanceof Activity) {
+                                            ((Activity) context).runOnUiThread(new Runnable() {
+                                                public void run() {
+                                                    Toast.makeText(context, "Tweeted! Check your feed to see if it worked.", Toast.LENGTH_SHORT).show();
+                                                }
+                                            });
+                                        }
                                     }
                                 });
                     } catch (TwitterException e) {
@@ -590,7 +609,6 @@ public class TwitterService {
 ```
 - Also add the following line in the manifest to the main activity tag `android:windowSoftInputMode="stateHidden"`. Our manifest is going to be changing a bit through out the next few steps, so I'll show you a complete version at the end.
 - In `MainActivity`, add the instantiation for the new `EditText` and `Button` views we added. Clicking the Tweet button triggers a chain of events. We get an instance of TwitterService and ask it to post a tweet with our message and picture. If we're not logged in, TweetService checks performs the necessary OAuth steps and redirects us to a web browser where we can log into Twitter. The browser redirects us back to the app where we can try to tweet again now that we are logged in.
-
 ```
 package com.adi.awesomeapp;
 
@@ -654,7 +672,6 @@ public class MainActivity extends Activity {
 
         // This is where the user will enter their tweet message
         mMessageView = (EditText) findViewById(R.id.message);
-        final String message = mMessageView.getText().toString();
 
         /**
          * Clicking the Tweet button triggers a chain of events.
@@ -684,6 +701,8 @@ public class MainActivity extends Activity {
                             ((BitmapDrawable) mImage.getDrawable()).getBitmap()
                     );
                 }
+
+                String message = mMessageView.getText().toString();
 
                 // Tweet!
                 TwitterService.getInstance(MainActivity.this).tweet(MainActivity.this, message, image);
@@ -813,6 +832,8 @@ public class ReceiverActivity extends Activity {
     package="com.adi.awesomeapp" >
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -846,7 +867,6 @@ public class ReceiverActivity extends Activity {
     </application>
 
 </manifest>
-
 ```
 - I also created an icon called `ic_launched.png`, deleted all the existing launcher icons and added mine to `AwesomeApp/app/src/main/res/drawable-mdpi`. Not the right way to do this, but just letting you know how it got there. :-)
 

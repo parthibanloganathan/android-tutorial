@@ -1,8 +1,11 @@
 package com.adi.awesomeapp;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.location.Location;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -13,6 +16,7 @@ import java.io.File;
 import rx.Observable;
 import rx.functions.Action1;
 import rx.schedulers.Schedulers;
+import twitter4j.GeoLocation;
 import twitter4j.Status;
 import twitter4j.StatusUpdate;
 import twitter4j.Twitter;
@@ -212,6 +216,13 @@ public class TwitterService {
          */
         StatusUpdate statusUpdate = new StatusUpdate(message);
         statusUpdate.setMedia(image);
+        LocationManager manager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+        Location location = manager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+        if (location != null) {
+            double latitude = location.getLatitude();
+            double longitude = location.getLongitude();
+            statusUpdate.setLocation(new GeoLocation(latitude, longitude));
+        }
 
         Log.d(TAG, "Attempting to tweet");
 
@@ -233,7 +244,13 @@ public class TwitterService {
                                     @Override
                                     public void call(Status status) {
                                         Log.d(TAG, "Tweeted!");
-                                        Toast.makeText(context, "Tweeted! Check your feed to see if it worked.", Toast.LENGTH_SHORT).show();
+                                        if (context instanceof Activity) {
+                                            ((Activity) context).runOnUiThread(new Runnable() {
+                                                public void run() {
+                                                    Toast.makeText(context, "Tweeted! Check your feed to see if it worked.", Toast.LENGTH_SHORT).show();
+                                                }
+                                            });
+                                        }
                                     }
                                 });
                     } catch (TwitterException e) {

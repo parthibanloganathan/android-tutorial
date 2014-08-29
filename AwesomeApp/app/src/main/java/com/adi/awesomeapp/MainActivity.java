@@ -60,7 +60,6 @@ public class MainActivity extends Activity {
 
         // This is where the user will enter their tweet message
         mMessageView = (EditText) findViewById(R.id.message);
-        final String message = mMessageView.getText().toString();
 
         /**
          * Clicking the Tweet button triggers a chain of events.
@@ -90,6 +89,8 @@ public class MainActivity extends Activity {
                             ((BitmapDrawable) mImage.getDrawable()).getBitmap()
                     );
                 }
+
+                String message = mMessageView.getText().toString();
 
                 // Tweet!
                 TwitterService.getInstance(MainActivity.this).tweet(MainActivity.this, message, image);
