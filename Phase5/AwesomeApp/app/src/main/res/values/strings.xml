@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">AwesomeApp</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="awesome_message">You\'re awesome!</string>
+    <string name="callback_url">"adi://awesome-app"</string>
+
+</resources>

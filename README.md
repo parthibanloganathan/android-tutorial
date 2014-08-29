@@ -868,7 +868,82 @@ public class ReceiverActivity extends Activity {
 
 </manifest>
 ```
-- I also created an icon called `ic_launched.png`, deleted all the existing launcher icons and added mine to `AwesomeApp/app/src/main/res/drawable-mdpi`. Not the right way to do this, but just letting you know how it got there. :-)
+- I also created an icon called `ic_launcher.png`, deleted all the existing launcher icons and added mine to `AwesomeApp/app/src/main/res/drawable-mdpi`. Ideally, we would create different size icons for each resolution. This is not the right way to do this, but just letting you know how it got there. :-)
+
+### Phase 5
+Now that we finished the guts of the app, let's pretty it up. This will be really quick!
+- Add some color resources by adding the file `AwesomeApp/app/src/main/res/values/colors.xml`
+```
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="background_blue">#307FBA</color>
+    <color name="light_blue">#94D1FF</color>
+    <color name="white">#FFFFFF</color>
+</resources>
+```
+- Add `background`, `textColor`, `marginTop`, `marginBottom` properties to `activity_main.xml`. This stuff is self-explanatory. To center everything in its child, add `gravity` to the LinearLayout.
+```
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_blue">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:gravity="center"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        tools:context=".MainActivity">
+
+        <Button
+            android:id="@+id/camera_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:drawableLeft="@android:drawable/ic_menu_camera"
+            android:text="Take a Picture" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:textColor="@color/white"
+            android:text="@string/awesome_message" />
+
+        <ImageView
+            android:id="@+id/my_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/puppy" />
+
+        <EditText
+            android:id="@+id/message"
+            android:layout_width="250dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:textColorHint="@color/light_blue"
+            android:textColor="@color/white"
+            android:layout_height="wrap_content"
+            android:hint="Enter your tweet here..." />
+
+        <Button
+            android:id="@+id/tweet_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/white"
+            android:text="Tweet" />
+
+    </LinearLayout>
+
+</ScrollView>
+```
 
 Congratulations!
 
@@ -882,7 +957,7 @@ You've made your first functional Android app. Take this knowledge and go make t
 #### Coursera
 Coursera has a wide selection of Android classes that you can take for free
 - [Android for programming newbies](https://www.coursera.org/course/androidapps101)
-- [In-depth Android intro](https://www.coursera.org/course/android)
+- [In-depth Android Intro](https://www.coursera.org/course/android)
 - [If you wanna be an Android pro](https://www.coursera.org/specialization/mobilecloudcomputing/2)
 
 #### Libraries
