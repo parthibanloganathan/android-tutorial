@@ -42,7 +42,7 @@ Let's get started!
 - You can run your activity by connecting your Android device to your computer via USB and pressing the giant green Play button above or going to Run > Run app. Select your device and proceed. Make sure to [install device drivers](http://developer.android.com/tools/extras/oem-usb.html) if necessary.
 - You just made a blank Android app. It does absolutely nothing, just like thousands of other apps that are viable businesses. Hooray!
 
-![Phase 1](screenshots/phase1.png)
+![Phase 1](screenshots/phase1.png =250x)
 
 ### Phase 2
 - You now have an app with one Activity.
@@ -86,7 +86,7 @@ Let's get started!
 ```
 - Awesome! Your app can display text and images. It's as functional as a web page in the early 90's. Fun fact: The first modern web browser was [Mosaic](http://en.wikipedia.org/wiki/Mosaic_%28web_browser%29) released in January 1993.
 
-![Phase 2](screenshots/phase2.png)
+![Phase 2](screenshots/phase2.png =250x)
 
 ### Phase 3
 - Puppies are nice, but how about we get a picture of you. We're going to replace that puppy image with your photo using the camera.
@@ -144,7 +144,7 @@ Let's get started!
 ```
 - It essentially checks if we successfully took a picture and then gets a scaled down bitmap image from the uri that the camera saved its picture to. This bitmap is set to our ImageView. We finally pop up a message saying that the picture was taken.
 
-![Phase 3](screenshots/phase3.png)
+![Phase 3](screenshots/phase3.png =250x)
 
 ### Phase 4 (Advanced)
 The internet makes everything better, EVERYTHING. Our simple Android app could be be so much more if we could interact with an internet service like Twitter. This section deals with using REST APIs and a nifty design pattern called `Observables` that makes chaining API calls together super simple. This is a step up from Phase 3, so you might need a a bit more patience to appreciate this section. You may want to do this phase after exploring Android on your own a bit more. This phase has more to do with OAuth and REST APIs that Android specifically, so if you're comfortable with them from other languages and frameworks, feel free to jump right in!
@@ -875,7 +875,7 @@ public class ReceiverActivity extends Activity {
 ```
 - I also created an icon called `ic_launcher.png`, deleted all the existing launcher icons and added mine to `AwesomeApp/app/src/main/res/drawable-mdpi`. Ideally, we would create different size icons for each resolution. This is not the right way to do this, but just letting you know how it got there. :-)
 
-![Phase 4-1](screenshots/phase4-1.png)  ![Phase 4-2](screenshots/phase4-2.png)  ![Phase 4-3](screenshots/phase4-3.png) 
+![Phase 4-1](screenshots/phase4-1.png =250x)  ![Phase 4-2](screenshots/phase4-2.png =250x)  ![Phase 4-3](screenshots/phase4-3.png =250x) 
 
 ### Phase 5
 Now that we finished the guts of the app, let's pretty it up. This will be really quick because I don't really care how this app looks and because this should be super easy to follow if you did Phase 4.
@@ -952,7 +952,7 @@ Now that we finished the guts of the app, let's pretty it up. This will be reall
 </ScrollView>
 ```
 
-![Phase 5](screenshots/phase5.png)
+![Phase 5](screenshots/phase5.png =250x)
 
 Congratulations!
 
