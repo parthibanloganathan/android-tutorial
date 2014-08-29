@@ -153,6 +153,8 @@ I strongly suggest you import the Phase 4 project because it's too large for me 
 
 - Create a new app on Twitter. Sign into Twitter, go to https://apps.twitter.com/ and create a new app. Fill up whatever you want, but make sure you add a url to the field `Callback URL`. I used `http://adicu.com`. You can use any valid URL - it doesn't matter. We'll supply our own callback URL in our API calls in the app. Once you create your app, go to your App Settings and make sure that the checkbox `Allow this application to be used to Sign in with Twitter` is ticked.
 - Go to Permissions and select `Read, Write and Access direct messages`. You may have to register your phone number.
+<a href="screenshots/twitterapp1.png"><img src="screenshots/twitterapp1.png" width="600px"></a>
+<a href="screenshots/twitterapp2.png"><img src="screenshots/twitterapp2.png" width="600px"></a>
 - Go to API Keys and copy `API key` and `API secret`. Put these in a file in your app at `AwesomeApp/app/src/main/res/values/keys.xml` like so:
 ```
 <?xml version="1.0" encoding="utf-8"?>
