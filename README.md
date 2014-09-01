@@ -165,6 +165,14 @@ I strongly suggest you import the Phase 4 project because it's too large for me 
 ```
 ### IMPORTANT: Your app can't access Twitter without the API keys. If you import Phase 4 directly, note that the API keys are not included and that you have to create your own.
 - Don't share these keys with anybody (that is, don't push it to GitHub, don't tweet it, don't make it your Facebook status, don't tell Bwog). If you do share them, be prepared for people to do malicious and dirty things with your keys (the horror!). You can regenerate your API keys in the Twitter app settings.
+- We need our handy-dandy libraries to help us on this one, so let's use gradle to build them for us using Maven. Go to `AwesomeApp/app/build.gradle` and add the following two lines under dependencies to import RxJava and twitter4j.
+```
+dependencies {
+compile fileTree(dir: 'libs', include: ['*.jar'])
+compile 'com.netflix.rxjava:rxjava-core:0.20.0'
+compile 'org.twitter4j:twitter4j-core:4.0.2'
+}
+```
 - To tweet, we're going to need access to the internet. So our app is going to have to request the permission `android.permission.INTERNET`. Open up the Manifest file located at `AwesomeApp/app/src/main/AndroidManifest.xml` and add `<uses-permission android:name="android.permission.INTERNET" />` in the `manifest` tag, but outside the `aplication` tag. Let's add the permissions `android.permission.ACCESS_COARSE_LOCATION` and `android.permission.ACCESS_FINE_LOCATION` so we can tweet our location too. 
 ```
 <?xml version="1.0" encoding="utf-8"?>
