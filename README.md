@@ -32,8 +32,16 @@ If there's ever a term you don't understand, consult the [Android docs](https://
 
 Let's get started!
 
+### Environment Setup
+- Install [Android Studio](https://developer.android.com/sdk/installing/studio.html)
+- Install the [Android SDK](https://developer.android.com/sdk/index.html#download)
+- Install [JDK 1.7](http://www.oracle.com/technetwork/java/javase/downloads/jdk7-downloads-1880260.html) if developing for Android 5.0+. Else, you only need JDK 1.6.
+- In the Android Studio setup, provide the paths to the unzipped Android SDK you downloaded and the relevant JDK.
+
+Setting up your environment is often a frustrating task with different problems arising on different operating systems. You might have to do some searching online to figure out your specific problem shoudl you encounter any.
+
 ### Phase 1
-- Install Android Studio.
+- Open Android Studio.
 - Create New Project.
 - Name your application `AwesomeApp`.
 - Click Next on "Select the form factors your app will run on".
