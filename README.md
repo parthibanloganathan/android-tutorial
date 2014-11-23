@@ -40,6 +40,8 @@ Let's get started!
 
 Setting up your environment is often a frustrating task with different problems arising on different operating systems. You might have to do some searching online to figure out your specific problem shoudl you encounter any.
 
+Once you've completed Phase 1, to run the app, you need to have the USB drivers for your phone based on your manufacturer. A quick online search for `USB drivers Android <device name>` should work. On your device, make sure you have USB Debugging enabled under Settings > Developer Options. To get the developer options setting go to Settings > About phone and tap Build Number 7 times (I'm not kidding - this is for real!).
+
 ### Phase 1
 - Open Android Studio.
 - Create New Project.
