@@ -34,7 +34,7 @@ Let's get started!
 
 ### Environment Setup
 - Install [Android Studio](https://developer.android.com/sdk/installing/studio.html)
-- Install the [Android SDK](https://developer.android.com/sdk/index.html#download)
+- Install the [Android SDK](https://developer.android.com/sdk/index.html#download). Expand `GET THE SDK FOR AN EXISTING IDE` and click on `Download the stand-alone Android SDK Tools`.
 - Install [JDK 1.7](http://www.oracle.com/technetwork/java/javase/downloads/jdk7-downloads-1880260.html) if developing for Android 5.0+. Else, you only need JDK 1.6.
 - In the Android Studio setup, provide the paths to the unzipped Android SDK you downloaded and the relevant JDK.
 
