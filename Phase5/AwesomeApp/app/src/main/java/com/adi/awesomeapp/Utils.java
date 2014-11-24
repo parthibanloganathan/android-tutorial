@@ -14,7 +14,7 @@ import java.io.IOException;
 
 public class Utils {
     private static final String fileName = "demo_image.jpg";
-    private static final int WIDTH = 600;
+    private static final int WIDTH = 400;
 
     /**
      * Create a new file in external memory and return its URI
