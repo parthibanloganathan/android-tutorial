@@ -84,4 +84,16 @@ public class MainActivity extends Activity {
             }
         }
     }
+
+    /**
+     * Notes: If you rotate your device, the photo will be disappear
+     * and be replaced by the default image of the puppy.
+     *
+     * This is because the Activity is restarted on rotation. Rotations
+     * trigger onConfigurationChanged() where you can store state
+     * based on the current orientation.
+     *
+     * You can also store the state of the Activity by using onSaveInstanceState(),
+     * which is called right before th OS destroys your Activity.
+     */
 }

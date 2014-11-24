@@ -81,8 +81,8 @@ public class MainActivity extends Activity {
                  * save a file with the current bitmap image
                  */
                 File image = null;
-                if (Utils.doesSavedImageExist(MainActivity.this)) {
-                    image = Utils.getSavedImage(MainActivity.this);
+                if (Utils.doesSavedImageExist(getApplicationContext())) {
+                    image = Utils.getSavedImage(getApplicationContext());
                 } else {
                     image = Utils.saveToFile(
                             MainActivity.this,

@@ -90,6 +90,8 @@ public class TwitterService {
          * Network calls have to be made on a new thread since the
          * main thread handles UI and you never want to do synchronous
          * blocking operations there.
+         *
+         * If we wanted to be real fancy, we could use a ThreadPool.
          */
         new Thread() {
             @Override
@@ -98,7 +100,7 @@ public class TwitterService {
                 try {
                     /**
                      * This is an Observable. They help us do lots of nifty
-                     * function stuff which is helpful when dealing with asynchronous tasks.
+                     * stuff which is helpful when dealing with asynchronous tasks.
                      * We don't really use the full power of Observables here, but this is a
                      * good intro to use them. Read more about them at
                      * https://github.com/ReactiveX/RxJava/wiki/Observable
@@ -178,7 +180,7 @@ public class TwitterService {
                      * Here, we create an Observable from the getOAuthAccessToken result.
                      * When the API call responds, our Observable emits an AccessToken object.
                      * Since we subscribed to the Observable, we are ready to perform an action
-                     * as soon as we get teh AccessToken.
+                     * as soon as we get the AccessToken.
                      */
                     Observable.just(twitter.getOAuthAccessToken(requestToken, oauthVerifier))
                             .subscribeOn(Schedulers.io())
