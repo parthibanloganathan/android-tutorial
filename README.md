@@ -7,6 +7,8 @@ This tutorial is divided into various phases. Each phase builds upon the previou
 
 Each phase has a separate folder and is self-contained. You can import each phase's project in Android Studio by cloning this repository using `git clone https://github.com/parthibanloganathan/android-tutorial.git` and then opening up Android Studio and going to File > Import Project > Phase 1 (or 2, 3, 4 depending on which phase you want). 
 
+[Here are the slides](http://slides.com/parthibanloganathan/intro-to-android-development#/) for the ADI workshop at Columbia based on this tutorial.
+
 #### Pre-requisites
 - Knowledge of Java (if you've taken 1004, 1007, you're good)
 - Desire to learn about the world's most popular mobile platform
