@@ -1,7 +1,7 @@
 Do Android Developers Dream of Electric Sheep?
 ==============================================
 ### A Beginner's Guide to Android
-####by [ADI](http://adicu.com/) at [Columbia](http://www.columbia.edu/)
+####by Parthiban Loganathan and [ADI](http://adicu.com/)
 
 This tutorial is divided into various phases. Each phase builds upon the previous one, adding features and exposing you to the Android way of doing things. In no way is this tutorial meant to be all-encompassing or a thorough introduction to Android, but it should help you get your feet wet and create a basic Android app that can do some cool stuff like take pictures and post to Twitter.
 
